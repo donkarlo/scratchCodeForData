@@ -1,34 +1,16 @@
 from __future__ import division
 from collections import Counter
 import math
-import random
 from matplotlib import pyplot as plt
-import sys;
-sys.path.append('probabilities/distributions/continuous')
-import normal
-
-#sys.path.append('/probabilties/destributions/discrete')
-#import binomial
-
-normal.test();
-
-
-def normal_pdf(x, mu=0, sigma=1):
-    sqrt_two_pi = math.sqrt(2 * math.pi)
-    return (math.exp(-(x-mu) ** 2 / 2 / sigma ** 2) / (sqrt_two_pi * sigma))
-    
-def normal_cdf(x, mu=0,sigma=1):
-    return (1 + math.erf((x - mu) / math.sqrt(2) / sigma)) / 2
-
-#sample bernouli trial
-def bernoulli_trial(p):
-    return 1 if random.random() < p else 0
 '''
-the production of this is a variable that it's higher band is 
-and the lower band is 0
-   ''' 
-def binomial(n, p):
-    return sum(bernoulli_trial(p) for _ in range(n))
+use this incase u dont have an __init__.py in continuos
+import sys;
+sys.path.append('probabilities/distributions/continuous') 
+import normal
+'''
+from probabilities.distributions.continuous.normal import * 
+from probabilities.distributions.discrete.binomial import * 
+
     
     
 def make_hist(p, n, num_points):
