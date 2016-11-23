@@ -4,7 +4,7 @@ import math
 import random
 from matplotlib import pyplot as plt
 import sys;
-sys.path.append('/probabilties/destributions/continues')
+sys.path.append('probabilities/distributions/continuous')
 import normal
 
 #sys.path.append('/probabilties/destributions/discrete')
