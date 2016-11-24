@@ -71,7 +71,7 @@ def normal_two_sided_bounds(probability, mu=0, sigma=1):
     return lower_bound, upper_bound
 '''end of probability to random variable'''    
 
-from probabilities.distributions.discrete import binomial
+from ..discrete import binomial
 mu_0, sigma_0 = normal_approximation_to_binomial(1000, 0.5)
 normal_two_sided_bounds(0.95, mu_0, sigma_0) # (469, 531)
 
