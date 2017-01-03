@@ -24,6 +24,8 @@ def make_hist(p, n, num_points):
     '''this line says how many times 76 was seen in 10000 
     times that we have thrown 100 times a coin
     a sample output:
+    76:908 means 908 times the summation of heads in 
+    one experiment among all 1000 expriments was 76
     Counter({76: 908, 75: 895, 74: 871,
     77: 860, 73: 766, 72: 730, 78: 727,
     79: 616, 71: 615, 70: 504, 80: 504,
@@ -52,4 +54,4 @@ def make_hist(p, n, num_points):
     plt.title("Binomial Distribution vs. Normal Approximation")
     plt.show()
     
-make_hist(0.75,100,10000)
+make_hist(0.5,1000,10000)

@@ -7,14 +7,23 @@ def normal_pdf(x, mu=0, sigma=1):
 def normal_cdf(x, mu=0,sigma=1):
     return (1 + math.erf((x - mu) / math.sqrt(2) / sigma)) / 2
 
-#give it probability it will give you randiom variable bands
+'''
+1.The calculation here is right because the inverse
+of and increasing function is also increasing. and
+normal_cdf is an increasing function
+
+2. give it probability it will give 
+you randiom variable bands
+'''
 def inverse_normal_cdf(p, mu=0, sigma=1, tolerance=0.00001):
     """find approximate inverse using binary search"""
     # if not standard, compute standard and rescale
     if mu != 0 or sigma != 1:
         return mu + sigma * inverse_normal_cdf(p, tolerance=tolerance)
-    low_z, low_p = -10.0, 0 # normal_cdf(-10) is (very close to) 0
-    hi_z, hi_p = 10.0, 1 # normal_cdf(10) is (very close to) 1
+    # normal_cdf(-10) is (very close to) 0
+    low_z, low_p = -10.0, 0 
+    # normal_cdf(10) is (very close to) 1    
+    hi_z, hi_p = 10.0, 1 
     while hi_z - low_z > tolerance:
         mid_z = (low_z + hi_z) / 2
          # consider the midpoint
@@ -22,6 +31,9 @@ def inverse_normal_cdf(p, mu=0, sigma=1, tolerance=0.00001):
          # and the cdf's value there
         if mid_p < p:
             # midpoint is still too low, search above it
+            '''This is correct beacause the inverse
+            of an increasing function is also increasing            
+            '''
             low_z, low_p = mid_z, mid_p
         elif mid_p > p:
             # midpoint is still too high, search below it
@@ -59,7 +71,12 @@ def normal_upper_bound(probability, mu=0, sigma=1):
 def normal_lower_bound(probability, mu=0, sigma=1):
     """returns the z for which P(Z >= z) = probability"""
     return inverse_normal_cdf(1 - probability, mu, sigma)
-    
+
+'''
+what we give as probability is 
+is the the probability of centeral part 
+to get bounds 
+''' 
 def normal_two_sided_bounds(probability, mu=0, sigma=1):
     """returns the symmetric (about the mean) bounds
     that contain the specified probability"""
@@ -71,9 +88,19 @@ def normal_two_sided_bounds(probability, mu=0, sigma=1):
     return lower_bound, upper_bound
 '''end of probability to random variable'''    
 
-from ..discrete import binomial
-mu_0, sigma_0 = normal_approximation_to_binomial(1000, 0.5)
-normal_two_sided_bounds(0.95, mu_0, sigma_0) # (469, 531)
+def two_sided_p_value(x, mu=0, sigma=1):
+    if x >= mu:
+        # if x is greater than the mean, the tail is what's greater than x
+        return 2 * normal_probability_above(x, mu, sigma)
+    else:
+        # if x is less than the mean, the tail is what's less than x
+        return 2 * normal_probability_below(x, mu, sigma)
+        
+upper_p_value = normal_probability_above
+lower_p_value = normal_probability_below
+
+
+
 
 
 
