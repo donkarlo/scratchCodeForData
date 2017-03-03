@@ -27,7 +27,7 @@ def safe(f):
             return float('inf')
              # this means "infinity" in Python
         return safe_f
-        
+'''theta_0 an intial arbitrary point'''        
 def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
     """use gradient descent to find theta that minimizes target function"""
     step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001]

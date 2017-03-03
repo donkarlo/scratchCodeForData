@@ -1,3 +1,4 @@
+#run type the_bible.txt | python most_common_words.py 10
 # most_common_words.py
 import sys
 from collections import Counter
