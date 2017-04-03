@@ -1,7 +1,8 @@
 from collections import Counter
 '''give it a list of repeated labels like [p,pg,p,pp,pg,pg] 
     and it give you back which label is repeated the most
-    as for this the winner is pg with 3 repeation    
+    as for this the winner is pg with 3 repeation 
+    @return pg , a label
     '''
 def raw_majority_vote(repeated_labels):# count of elements in repeated_labels in kNN is k
     votes = Counter(repeated_labels)
@@ -13,18 +14,30 @@ def majority_vote(labels):
     vote_counts = Counter(labels)
     winner, winner_count = vote_counts.most_common(1)[0]
     num_winners = len([count
-    for count in vote_counts.values()
-    if count == winner_count])
+                        for count in vote_counts.values()
+                            if count == winner_count])
     if num_winners == 1:
         return winner# unique winner, so return it
     else:
         return majority_vote(labels[:-1]) # try again without the farthest, that means the label belonging to the farthest point  in comparision to the new coming point  among the k nearst points
-        
+'''
+@param k is a number and for any given point 
+we find k nearest neightbouring points and we vote their labels
+and the label with most points will be also sticked to the new point
+
+@param labeled_points is a list like 
+cities = [([-122.3 , 47.53], "Python"), # Seattle
+([ -96.85, 32.85], "Java"), # Austin
+([ -89.33, 43.13], "R"), # Madison
+# ... and so on
+]
+
+'''       
 def knn_classify(k, labeled_points, new_point):
     """each labeled point should be a pair (point, label)"""
     # order the labeled points from nearest to farthest
     by_distance = sorted(labeled_points,
-    key=lambda (point, _): distance(point, new_point))
+                         key=lambda (point, _): distance(point, new_point))
     # find the labels for the k closest
     k_nearest_labels = [label for _, label in by_distance[:k]]
     # and let them vote

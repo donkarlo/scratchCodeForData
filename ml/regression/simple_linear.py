@@ -13,7 +13,8 @@ def error(alpha, beta, x_i, y_i):
     return y_i - predict(alpha, beta, x_i)
     
 '''What we’d really like to know is the total error over the entire data set. But we don’t
-want to just add the errors—if the prediction for x_1 is too high and the prediction
+want to just add the errors—if the prediction 
+for x_1 is too high and the prediction
 for x_2 is too low, the errors may just cancel out.
 So instead we add up the squared errors:
 alpha and beta are the estimates and x and y are

@@ -5,7 +5,7 @@ class KMeans:
         '''Means are a list of 2-d points. since eache point
             was also presented by a list so it looks something like
             [[1.2,2.3],[2.6,6.5],...], in kmeans
-            a means has k elements and if first is filled
+            a means has k elements and it first is filled
             by k random selected inputs in train method
         '''
         self.means = None# means of clusters
@@ -26,7 +26,7 @@ class KMeans:
         '''Is a list of integers each denoting 
         the index of the mean to which
         each input is closer. So it has as many members as the inputs.
-        Since we dont mess with the order of inputs, this could serve
+        Since we don't mess with the order of inputs, this could serve
         us as a good tool to see if points are changing their clusters
         or not
         '''

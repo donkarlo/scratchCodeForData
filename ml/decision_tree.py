@@ -17,6 +17,12 @@ inputs=[
 ]
 
 #how much info?
+'''
+@param class_probability a list like 
+[n(false)/labels(false),n(false)/labels(false)]
+like [0.2,0.8]
+@ return the entropy
+'''
 def entropy(class_probabilities):
     """given a list of class probabilities, compute the entropy"""
     return sum(-p * math.log(p, 2)
@@ -24,8 +30,10 @@ def entropy(class_probabilities):
         if p)# ignore zero probabilities
 
 '''
-- labels for the sample inputs here are [True,False,False,True,...]
-- Returns a list with 2 elemensts if have used the inputs variable
+@param labels for the sample inputs here are 
+[True,False,False,True,...]
+@return Returns a list with 2 elemensts if have used 
+the inputs variable
 in this file in data_entropy function like [0.1,0.9]
 or if it help with better understanding 
 [n(False)/n(labels),n(True)/n(labels)]
@@ -36,18 +44,24 @@ def class_probabilities(labels):
         for count in Counter(labels).values()]
             
 '''You can see a sample data 
-in this file with the name inputs'''
+in this file with the name inputs
+@param labeled_data is list of tuples each element is like an entry of inputs
+variable in the begining of the file 
+({'level':'Junior', 'lang':'Python', 'tweets':'no', 'phd':'yes'}, False)
+and this tuples are listed into one list because for example 
+all their lang entries where Python
+'''
 def data_entropy(labeled_data):
     labels = [label for _, label in labeled_data]
     probabilities = class_probabilities(labels)
     return entropy(probabilities)
     
 '''
-subsets are like a sub list of inputs
-which are usually grouped by a specific value ofan attrbute
+@param subsets are like a sub list of inputs
+which are usually grouped by a specific value of an attrbute
 like list of all inputs whose lang are R
-[[(),(),...],[(),(),...],...], in each pranthesis represents one input
-- 
+[[(),(),...],[(),(),...],...], in each pranthesis represents 
+one input in the begining of the file
 '''
 def partition_entropy(subsets):
     """find the entropy from this partition of data into subsets
@@ -57,8 +71,8 @@ def partition_entropy(subsets):
         for subset in subsets )
 
 '''
--Actually it is better to call this parition by attribute. 
--attribute like (has)phd? in inputs as given above
+-Actually it is better to call this function parition by attribute. 
+-@oaram attribute like (has)phd? in inputs as given above
 -@param a subset of inputs
 -@returns groups, which is like this if 
     attribute is 'level' then 
@@ -132,6 +146,9 @@ or in other words
 def build_tree_id3(inputs, split_candidates=None):
     # if this is our first pass,
     # all keys of the first input are split candidates
+    '''split candidate will be a list like the first time 
+    ['level','lang','tweets','phd']    
+    '''
     if split_candidates is None:
         split_candidates = inputs[0][0].keys()
     # count Trues and Falses in the inputs
@@ -150,15 +167,22 @@ def build_tree_id3(inputs, split_candidates=None):
     -otherwise, split on the best attribute
     -the first time the split_candidates is 
     ['level','lang','tweets','phd']
-    -key is a one argument function that all split_candidate attributes
+    -key is a one argument function that all
+    split_candidate attributes
     are sent in to chose the one with minimum entropy
+    - we have chosen min becase we want to place the 
+    attribute(the question) with biggest entropy on the top
+    so it better creates a balanced tree. but in this code 
+    to achieve this goal we are actually building the tree from 
+    it's deepes leaves to it's highest decision nodes. 
+    check the book for what leaves and decision nodes mean. 
     '''
     best_attribute = min(split_candidates,
                          key=partial(partition_entropy_by, inputs))
     partitions = partition_by(inputs, best_attribute)
     new_candidates = [a for a in split_candidates
                         if a != best_attribute]
-    # recursively build the subtrees
+    '''recursively build the subtrees'''
     subtrees = { attribute_value : build_tree_id3(subset, new_candidates)
     for attribute_value, subset in partitions.iteritems() }
         subtrees[None] = num_trues > num_falses# default case
@@ -205,9 +229,12 @@ classify(tree, { "level" : "Intern" } ) # True
 classify(tree, { "level" : "Senior" } ) # False
 
 '''
-Given how closely decision trees can fit themselves to their training data, it’s not sur‐
-prising that they have a tendency to overfit. One way of avoiding this is a technique
-called random forests, in which we build multiple decision trees and let them vote on
+Given how closely decision trees can fit themselves to 
+their training data, it’s not sur‐
+prising that they have a tendency to overfit. 
+One way of avoiding this is a technique
+called random forests, in which we build multiple 
+decision trees and let them vote on
 how to classify inputs:
 '''
 def forest_classify(trees, input):

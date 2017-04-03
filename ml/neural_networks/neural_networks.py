@@ -20,10 +20,11 @@ def perceptron_output(weights, bias, x):
 def sigmoid(t):
     return 1 / (1 + math.exp(-t))
 '''
--@param weights=[2,4,1,...,45]->the last element, 45, is the bias
+@param weights=[2,4,1,...,45]->the last element, 45, is the bias
 be careful, weights could be like [[],[],...] as well
 
--@param inputs is something like [1,4,..,1] the last element must be 1 to reproduce
+@param inputs is something like [1,4,..,1] the last element 
+must be 1 to reproduce
 bias when multiplied by weights' last element
 '''
 def neuron_output(weights, inputs):
@@ -86,15 +87,20 @@ for x in [0, 1]:
 #     1 1 [9.383146683006828e-14]
 
 '''
-- The book's code is wrong, this code is springed from the book's github page
-- You have to run this code in a loop for some hundreds oe thousands of time
+- The book's code is wrong, this code is springed from 
+the book's github page
+- You have to run this code in a loop for some 
+hundreds or thousands of time
 to get a good estimation of neuron weights
 @param network is a network with arbitrary weights. 
-this function just works with a neural network with a SINGLE hidden layer
+this function just works with a neural network with a SINGLE 
+hidden layer
 @param input_vector is the training input vector. A list like
 [scalar_1,sclalar_2,...] or better to say a list of scalars
 @param target is the same as input_vector in schema. a list like
 [scalar_1,sclalar_2,...] or better to say a list of scalars
+@return the network weight will refined and 
+network will be interpreted as a sent by refrence
 '''     
 def backpropagate(network, input_vector, target):
 
@@ -220,20 +226,31 @@ if __name__ == "__main__":
                 for c in row.strip()]
                 
     inputs = map(make_digit, raw_digits)
-
+'''check the comments on output size comments'''
     targets = [[1 if i == j else 0 for i in range(10)]
                for j in range(10)]
 
     random.seed(0)   # to get repeatable results
     input_size = 25  # each input is a vector of length 25
     num_hidden = 5   # we'll have 5 neurons in the hidden layer
+    
+'''We’ll want our output to indicate which digit the neural network thinks it is, so we’ll
+need 10 outputs. The correct output for digit 4, for instance, will be:
+'''    
     output_size = 10 # we need 10 outputs for each input
 
     # each hidden neuron has one weight per input, plus a bias weight
+    '''a list of 5 lists each is bearing 26 scalars of
+    random numbers between 0 and 1 as the weights  
+    '''
     hidden_layer = [[random.random() for __ in range(input_size + 1)]
                     for __ in range(num_hidden)]
 
-    # each output neuron has one weight per hidden neuron, plus a bias weight
+    '''-each output neuron has one weight 
+    per hidden neuron, plus a bias weight
+-     list of 10 lists each having 6 scalars 
+of numbers between 0 and 1
+    '''
     output_layer = [[random.random() for __ in range(num_hidden + 1)]
                     for __ in range(output_size)]
 

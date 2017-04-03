@@ -1,3 +1,10 @@
+''' the data used mostly here'''
+num_friends = [100, 49, 41, 40, 25,
+# ... and lots more
+]
+
+
+
 # this isn't right if you don't from __future__ import division
 from collections import Counter
 from ..linearAlgebra.matrice import shape

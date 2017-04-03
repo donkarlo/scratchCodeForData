@@ -19,3 +19,7 @@
 #for j in range(10)]
 #    
 #print targets
+
+a= [[]]
+b=[2]
+print a+b
