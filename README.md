@@ -1,2 +1,2 @@
-# DataScienceFromScratchBook
-modular and packaged codes for the book data science from scratch codes 
+code form scratch for most famous data science methods
+
